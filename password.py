@@ -24,10 +24,21 @@ class RandomPasswordGen:
 
     def generate(
         self, 
-        length=20, 
+        length=20,
+        *, 
+        exclude_lowercase: bool=False,
+        exclude_uppercase: bool=False,
+        exclude_symbols: bool=False,
     ):
         self.length_checker(length)
+        elements = []
+        if exclude_lowercase is False:
+            elements += self.lower_case_alphabets
+        if exclude_uppercase is False:
+            elements += self.upper_case_alphabets
+        if exclude_symbols is False:
+            elements += self.punctuation
 
+        if elements == []: raise ValueError("You must allow at least one type of password variable to be accepted")
 
-generator = RandomPasswordGen()
-generator.generate()
+        return self.generate_password(elements=elements, length=length)
