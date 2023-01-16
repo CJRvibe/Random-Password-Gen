@@ -10,7 +10,7 @@ class RandomPasswordGen:
 
     def generate_password(self, elements, length):
         generated_password = ''
-        result = random.choices(elements, length)
+        result = random.choices(elements, k=length)
         for i in result: generated_password += i
         return generated_password
 
