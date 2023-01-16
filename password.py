@@ -8,14 +8,14 @@ class RandomPasswordGen:
     numbers = list(string.digits)
     punctuation = list(string.punctuation)
 
-    def generate_password(self, elements, length):
+    def __generate_password(self, elements, length):
         generated_password = ''
         result = random.choices(elements, k=length)
         for i in result: generated_password += i
         return generated_password
 
     
-    def length_checker(self, length):
+    def __length_checker(self, length):
         if length < 8:
             raise ValueError("length of password given must be longer than 8 characters")
         elif length > 50:
@@ -30,7 +30,7 @@ class RandomPasswordGen:
         exclude_uppercase: bool=False,
         exclude_symbols: bool=False,
     ):
-        self.length_checker(length)
+        self.__length_checker(length)
         elements = []
         if exclude_lowercase is False:
             elements += self.lower_case_alphabets
@@ -41,4 +41,4 @@ class RandomPasswordGen:
 
         if elements == []: raise ValueError("You must allow at least one type of password variable to be accepted")
 
-        return self.generate_password(elements=elements, length=length)
+        return self.__generate_password(elements=elements, length=length)
