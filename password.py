@@ -4,16 +4,23 @@ from typing import List
 
 
 class CurrentState:
+    """
+A class to represent the current state of the password generator.
+This class stores the most recent information about the specifics of generating the password.
+    """
     def __init__(self):
         self.elements: List[str]
         self.length: int
 
     
-    def edit_state(self, elements, length):
+    def edit_state(self, elements: List[str], length: int) -> None:
         self.elements = elements
         self.length = length
 
 class RandomPasswordGen:
+    """
+A class that holds all functionalities to generate random password    
+    """
     upper_case_alphabets = list(string.ascii_uppercase)
     lower_case_alphabets = list(string.ascii_lowercase)
     numbers = list(string.digits)
@@ -23,14 +30,14 @@ class RandomPasswordGen:
         self.__current_state: CurrentState = CurrentState()
 
 
-    def __generate_password(self, elements, length):
+    def __generate_password(self, elements: List[str], length: int) -> str:
         generated_password = ''
         result = random.choices(elements, k=length)
         for i in result: generated_password += i
         return generated_password
 
     
-    def __length_checker(self, length):
+    def __length_checker(self, length: int) -> None:
         if length < 8:
             raise ValueError("length of password given must be longer than 8 characters")
         elif length > 50:
@@ -39,13 +46,13 @@ class RandomPasswordGen:
 
     def generate(
         self, 
-        length=20,
+        length: int=20,
         *, 
         exclude_lowercase: bool=False,
         exclude_uppercase: bool=False,
         exclude_symbols: bool=False,
         exclude_numbers: bool=False
-    ):
+    ) -> str:
         self.__length_checker(length)
         elements = []
         if exclude_lowercase is False:
@@ -63,7 +70,10 @@ class RandomPasswordGen:
         return self.__generate_password(elements=elements, length=length)
 
     
-    def regenerate(self):
+    def regenerate(self) -> str:
+        """
+Regenerate the password based on the most recent specified details for the previous password generation
+        """
         elements = self.__current_state.elements
         length = self.__current_state.length
         return self.__generate_password(elements=elements, length=length)
