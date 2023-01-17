@@ -1,4 +1,4 @@
-import random
+import secrets
 import string
 from typing import List
 
@@ -31,10 +31,8 @@ A class that holds all functionalities to generate random password
 
 
     def __generate_password(self, elements: List[str], length: int) -> str:
-        generated_password = ''
-        result = random.choices(elements, k=length)
-        for i in result: generated_password += i
-        return generated_password
+        result = "".join(secrets.choice(elements) for i in range(length+1))
+        return result
 
     
     def __length_checker(self, length: int) -> None:
