@@ -29,6 +29,7 @@ class RandomPasswordGen:
         exclude_lowercase: bool=False,
         exclude_uppercase: bool=False,
         exclude_symbols: bool=False,
+        exclude_numbers: bool=False
     ):
         self.__length_checker(length)
         elements = []
@@ -38,6 +39,8 @@ class RandomPasswordGen:
             elements += self.upper_case_alphabets
         if exclude_symbols is False:
             elements += self.punctuation
+        if exclude_numbers is False:
+            elements += self.numbers
 
         if elements == []: raise ValueError("You must allow at least one type of password variable to be accepted")
 
